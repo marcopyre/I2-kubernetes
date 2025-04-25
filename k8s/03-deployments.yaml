@@ -140,7 +140,10 @@ spec:
         - name: result
           image: marcopyre/result:latest
           ports:
-            - containerPort: 4000
+            - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: result-env
           resources:
             limits:
               cpu: "0.5"
@@ -151,7 +154,7 @@ spec:
           livenessProbe:
             httpGet:
               path: /
-              port: 4000
+              port: 80
             initialDelaySeconds: 30
             periodSeconds: 10
 ---
