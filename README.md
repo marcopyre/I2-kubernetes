@@ -17,6 +17,8 @@ configuration des dépences: ./configuration.sh
 
 déploiement: ./deploy.sh
 
+supression: ./cleanup.sh
+
 # Présentation de l'application
 
 L'application est composée de 6 composants : `vote`, `result`, `worker`, `db`, `redis` et `proxy`.
