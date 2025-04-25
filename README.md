@@ -6,7 +6,7 @@ abstract: Le but de ce TP est d'isoler et de déployer une application dans une 
 
 # Deploiement kubernetes
 
-les noms de domaines suivant doivent étre configurer pour pointer sur l'ip exposé par kubernetes:
+les noms de domaines suivant doivent étre configuré (/etc/hosts pour linux) pour pointer sur l'ip exposé par kubernetes:
 vote.votes.fr
 results.votes.fr
 grafana.votes.fr
