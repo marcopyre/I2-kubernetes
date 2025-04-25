@@ -1,3 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus-stack-grafana
+  namespace: monitoring
+spec:
+  ports:
+    - port: 80
+      targetPort: 3000
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: grafana
+---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -8,13 +21,13 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: grafana.votes.fr
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: prometheus-stack-grafana
-            port:
-              number: 80
+    - host: grafana.votes.fr
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: prometheus-stack-grafana
+                port:
+                  number: 80

@@ -8,23 +8,24 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: vote.votes.fr
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: vote
-            port:
-              number: 80
-  - host: results.votes.fr
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: result
-            port:
-              number: 80
+    - host: vote.votes.fr
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: vote
+                port:
+                  number: 80
+
+    - host: results.votes.fr
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: result
+                port:
+                  number: 80
