@@ -1,0 +1,68 @@
+services:
+  proxy:
+    build: ./proxy
+    ports:
+      - "80:80"
+    depends_on:
+      - vote
+      - result
+    networks:
+      - frontend
+
+  vote:
+    build: ./vote
+    container_name: vote
+    volumes:
+      - ./vote:/app
+    depends_on:
+      - redis
+    networks:
+      - frontend
+      - backend
+
+  result:
+    build: ./result
+    container_name: results
+    volumes:
+      - ./result:/app
+    depends_on:
+      - db
+    networks:
+      - frontend
+      - backend
+
+  worker:
+    build: ./worker
+    depends_on:
+      - redis
+      - db
+    networks:
+      - backend
+
+  db:
+    image: postgres:9.4
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - backend
+    healthcheck:
+      test: /healthchecks/postgres.sh
+      interval: 5s
+
+  redis:
+    image: redis:alpine
+    networks:
+      - backend
+    healthcheck:
+      test: /healthchecks/redis.sh
+      interval: 5s
+
+networks:
+  frontend:
+  backend:
+
+volumes:
+  db-data:
